@@ -109,3 +109,41 @@ const digital_root = n => {
         ? n
         : digital_root([...String(n)].reduce((acc, val) => Number(acc) + Number(val)))
 }
+
+
+//  You will be given a string (x) featuring a cat 'C', a dog 'D' and a mouse 'm'. The rest of the string will be made up of '.'.
+
+// You need to find out if the cat can catch the mouse from it's current position. The cat can jump (j) characters. Also, the cat cannot jump over the dog.
+
+// if j = 5:
+
+// .....C............m...... returns 'Escaped!' <-- as there are more than j characters between the two, the cat can't jump far enough
+
+// if j = 10:
+
+// ...m.........C...D returns 'Caught!' <--Cat can jump far enough and jump is not over dog
+
+// ...m....D....C....... returns 'Protected!' <-- Cat can jump far enough, but dog is in the way, protecting the mouse
+
+// Finally, if all three animals are not present, return 'boring without all three'
+
+const catMouse = (x, j) => {
+    const positions = {
+        m: x.indexOf("m"),
+        D: x.indexOf("D"),
+        C: x.indexOf("C")
+    }
+    if (Object.values(positions).includes(-1)) {
+        return "boring without all three";
+    }
+    //Check if mouse is within reach for the cat
+    if (Math.abs(positions.m - positions.C) <= j) {
+        //  Check if dog is between the cat's and mouse' position   
+        if (positions.D < positions.m && positions.D > positions.C
+            || positions.D < positions.C && positions.D > positions.m) {
+            return "Protected!";
+        }
+        return "Caught!";
+    }
+    return "Escaped!";
+}
