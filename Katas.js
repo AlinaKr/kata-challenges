@@ -163,3 +163,16 @@ const humanReadable = seconds => {
     let sec = seconds % 60
     return [hours, minutes, sec].map(val => val > 9 ? val : '0' + val).join(":");
 }
+
+
+// Given a list of digits, return the smallest number that could be formed from these digits, using the digits only once (ignore duplicates).
+
+// Only positive integers will be passed to the function (> 0 ), no negatives or zeros.
+// Input >> Output Examples
+// minValue ({1, 3, 1})  ==> return (13)
+
+const minValue = (values) => {
+    return +[...new Set(values)]
+        .sort()
+        .join('')
+}
